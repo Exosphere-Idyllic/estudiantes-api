@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!--
+        CONFIGURACIÓN DEL PROYECTO MAVEN
+        Proyecto WAR para despliegue en servidores Jakarta EE
+    -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Identificación única del proyecto -->
+    <groupId>ec.edu.istq</groupId>
+    <artifactId>estudiantes-api</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>estudiantes-api</name>
+    <packaging>war</packaging> <!-- Empaquetado como WAR para servidores web -->
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.target>25</maven.compiler.target>
+        <maven.compiler.source>25</maven.compiler.source>
+        <junit.version>5.13.2</junit.version>
+    </properties>
+
+    <dependencies>
+        <!-- ==============================================================
+             JAKARTA EE / JAX-RS API (ESTÁNDAR)
+             ============================================================== -->
+        <!-- Jakarta RESTful Web Services API (Reemplaza a javax.ws.rs) -->
+        <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+            <version>4.0.0</version>
+            <scope>provided</scope> <!-- Proporcionado por el servidor -->
+        </dependency>
+
+        <!-- ==============================================================
+             JERSEY - IMPLEMENTACIÓN DE JAX-RS
+             ============================================================== -->
+        <!-- Contenedor Servlet para Jersey -->
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>4.0.0-M1</version>
+        </dependency>
+
+        <!-- Inyección de dependencias con HK2 -->
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+            <version>4.0.0-M1</version>
+        </dependency>
+
+        <!-- Soporte para JSON con Jackson -->
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>4.0.0-M1</version>
+        </dependency>
+
+        <!-- ==============================================================
+             BASE DE DATOS - POSTGRESQL (CAMBIO DE MYSQL A POSTGRESQL)
+             ============================================================== -->
+        <!-- PostgreSQL Connector para conexión JDBC -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.3</version>
+        </dependency>
+
+        <!-- ==============================================================
+             JAKARTA SERVLET API
+             ============================================================== -->
+        <!-- API de Servlet para aplicaciones web -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope> <!-- Proporcionado por el servidor -->
+        </dependency>
+
+        <!-- ==============================================================
+             JUNIT 5 PARA TESTING
+             ============================================================== -->
+        <!-- API de JUnit Jupiter para pruebas unitarias -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Motor de ejecución de JUnit Jupiter -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Plugin para empaquetar archivos WAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
+            </plugin>
+
+            <!-- Plugin de compilación Java -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>25</source>
+                    <target>25</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
