@@ -2,8 +2,8 @@ package ec.edu.istq.util;
 
 /**
  * VALIDADOR DE CÉDULA ECUATORIANA
- * Implementa algoritmo de validación para cédulas de Ecuador.
- * Basado en el módulo 10 (algoritmo de Luhn modificado).
+ * Implementa el algoritmo correcto de validación para cédulas de Ecuador.
+ * Las posiciones IMPARES (índices 0,2,4,6,8) se multiplican por 2.
  */
 public class CedulaValidator {
 
@@ -30,18 +30,27 @@ public class CedulaValidator {
             return false;
         }
 
-        // Extraer los primeros 9 dígitos y el dígito verificador
-        String primeros9 = cedula.substring(0, 9);
-        int digitoVerificador = Integer.parseInt(cedula.substring(9, 10));
+        // Validar código de provincia (01-24)
+        int provincia = Integer.parseInt(cedula.substring(0, 2));
+        if (provincia < 1 || provincia > 24) {
+            return false;
+        }
+
+        // Validar tercer dígito (debe ser menor a 6 para personas naturales)
+        int tercerDigito = Integer.parseInt(cedula.substring(2, 3));
+        if (tercerDigito > 5) {
+            return false;
+        }
 
         // Aplicar algoritmo de validación
         int suma = 0;
+        int digitoVerificador = Integer.parseInt(cedula.substring(9, 10));
 
-        for (int i = 0; i < primeros9.length(); i++) {
-            int digito = Integer.parseInt(primeros9.substring(i, i + 1));
+        for (int i = 0; i < 9; i++) {
+            int digito = Integer.parseInt(cedula.substring(i, i + 1));
 
-            // Para posiciones pares (considerando índice 0 como posición 1)
-            if ((i + 1) % 2 == 0) {
+            // Las posiciones IMPARES (índices 0, 2, 4, 6, 8) se multiplican por 2
+            if (i % 2 == 0) {
                 digito = digito * 2;
                 if (digito > 9) {
                     digito = digito - 9;
@@ -79,8 +88,18 @@ public class CedulaValidator {
             return "La cédula debe contener solo números";
         }
 
+        int provincia = Integer.parseInt(cedula.substring(0, 2));
+        if (provincia < 1 || provincia > 24) {
+            return "Código de provincia inválido (01-24)";
+        }
+
+        int tercerDigito = Integer.parseInt(cedula.substring(2, 3));
+        if (tercerDigito > 5) {
+            return "Tercer dígito inválido (debe ser < 6)";
+        }
+
         if (!esValida(cedula)) {
-            return "La cédula no es válida (algoritmo de verificación falló)";
+            return "La cédula no es válida (dígito verificador incorrecto)";
         }
 
         return null; // Válida
@@ -113,6 +132,29 @@ public class CedulaValidator {
             return Integer.parseInt(cedula.substring(0, 2));
         } catch (NumberFormatException e) {
             return -1;
+        }
+    }
+
+    /**
+     * MÉTODO DE PRUEBA
+     */
+    public static void main(String[] args) {
+        // Cédulas válidas de ejemplo
+        String[] cedulas = {
+                "1713175071", // Pichincha - VÁLIDA
+                "0926687856", // Guayas - VÁLIDA
+                "0102893954", // Azuay - VÁLIDA
+                "1234567890"  // INVÁLIDA
+        };
+
+        System.out.println("=== PRUEBA DE VALIDACIÓN ===");
+        for (String cedula : cedulas) {
+            System.out.println("\nCédula: " + cedula);
+            System.out.println("¿Válida?: " + (esValida(cedula) ? "✅ SÍ" : "❌ NO"));
+            String mensaje = validarConMensaje(cedula);
+            if (mensaje != null) {
+                System.out.println("Error: " + mensaje);
+            }
         }
     }
 }

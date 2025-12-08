@@ -70,7 +70,7 @@ public class EstudianteDAOImpl implements EstudianteDAO {
             }
 
         } catch (SQLException e) {
-            System.err.println("❌ Error al obtener todos los estudiantes: " + e.getMessage());
+            System.err.println("Error al obtener todos los estudiantes: " + e.getMessage());
             throw e; // Relanzar para manejo superior
         }
 
@@ -92,7 +92,7 @@ public class EstudianteDAOImpl implements EstudianteDAO {
             }
 
         } catch (SQLException e) {
-            System.err.println("❌ Error al obtener estudiante por ID: " + e.getMessage());
+            System.err.println("Error al obtener estudiante por ID: " + e.getMessage());
             throw e;
         }
 
@@ -114,7 +114,7 @@ public class EstudianteDAOImpl implements EstudianteDAO {
             }
 
         } catch (SQLException e) {
-            System.err.println("❌ Error al obtener estudiante por cédula: " + e.getMessage());
+            System.err.println("Error al obtener estudiante por cédula: " + e.getMessage());
             throw e;
         }
 
@@ -147,11 +147,11 @@ public class EstudianteDAOImpl implements EstudianteDAO {
                 estudiante.setId(rs.getLong("id"));
                 estudiante.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
                 estudiante.setFechaActualizacion(rs.getTimestamp("fecha_actualizacion"));
-                System.out.println("✅ Estudiante creado con ID: " + estudiante.getId());
+                System.out.println("Estudiante creado con ID: " + estudiante.getId());
             }
 
         } catch (SQLException e) {
-            System.err.println("❌ Error al crear estudiante: " + e.getMessage());
+            System.err.println("Error al crear estudiante: " + e.getMessage());
             throw e;
         }
 
@@ -177,13 +177,13 @@ public class EstudianteDAOImpl implements EstudianteDAO {
             int filasActualizadas = pstmt.executeUpdate();
 
             if (filasActualizadas > 0) {
-                System.out.println("✅ Estudiante actualizado: ID " + estudiante.getId());
+                System.out.println("Estudiante actualizado: ID " + estudiante.getId());
                 return true;
             }
             return false;
 
         } catch (SQLException e) {
-            System.err.println("❌ Error al actualizar estudiante: " + e.getMessage());
+            System.err.println("Error al actualizar estudiante: " + e.getMessage());
             throw e;
         }
     }
@@ -197,13 +197,13 @@ public class EstudianteDAOImpl implements EstudianteDAO {
             int filasEliminadas = pstmt.executeUpdate();
 
             if (filasEliminadas > 0) {
-                System.out.println("✅ Estudiante eliminado: ID " + id);
+                System.out.println("Estudiante eliminado: ID " + id);
                 return true;
             }
             return false;
 
         } catch (SQLException e) {
-            System.err.println("❌ Error al eliminar estudiante: " + e.getMessage());
+            System.err.println("Error al eliminar estudiante: " + e.getMessage());
             throw e;
         }
     }
@@ -238,13 +238,13 @@ public class EstudianteDAOImpl implements EstudianteDAO {
             int filasActualizadas = pstmt.executeUpdate();
 
             if (filasActualizadas > 0) {
-                System.out.println("✅ Estado cambiado a " + (activo ? "ACTIVO" : "INACTIVO") + ": ID " + id);
+                System.out.println("Estado cambiado a " + (activo ? "ACTIVO" : "INACTIVO") + ": ID " + id);
                 return true;
             }
             return false;
 
         } catch (SQLException e) {
-            System.err.println("❌ Error al cambiar estado del estudiante: " + e.getMessage());
+            System.err.println("Error al cambiar estado del estudiante: " + e.getMessage());
             throw e;
         }
     }
@@ -275,7 +275,7 @@ public class EstudianteDAOImpl implements EstudianteDAO {
             }
 
         } catch (SQLException e) {
-            System.err.println("❌ Error al buscar estudiantes: " + e.getMessage());
+            System.err.println("Error al buscar estudiantes: " + e.getMessage());
             throw e;
         }
 
@@ -317,7 +317,7 @@ public class EstudianteDAOImpl implements EstudianteDAO {
             return false;
 
         } catch (SQLException e) {
-            System.err.println("❌ Error al verificar existencia por cédula: " + e.getMessage());
+            System.err.println("Error al verificar existencia por cédula: " + e.getMessage());
             throw e;
         }
     }
@@ -355,9 +355,9 @@ public class EstudianteDAOImpl implements EstudianteDAO {
     public void testConexion() {
         try {
             DatabaseConnection.testConnection();
-            System.out.println("✅ DAO funcionando correctamente");
+            System.out.println("DAO funcionando correctamente");
         } catch (Exception e) {
-            System.err.println("❌ Error en el DAO: " + e.getMessage());
+            System.err.println("Error en el DAO: " + e.getMessage());
         }
     }
 }

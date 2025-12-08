@@ -34,7 +34,7 @@ public class DatabaseConnection {
             Class.forName("org.postgresql.Driver");
             System.out.println("✅ Driver PostgreSQL cargado exitosamente");
         } catch (ClassNotFoundException e) {
-            System.err.println("❌ ERROR: Driver PostgreSQL no encontrado");
+            System.err.println("   ERROR: Driver PostgreSQL no encontrado");
             System.err.println("   Asegúrate de incluir la dependencia en pom.xml");
             e.printStackTrace();
         }
